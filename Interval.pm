@@ -16,7 +16,7 @@ require	Exporter;
 use vars qw($VERSION @EXPORT @ISA %intervals);
 @ISA 		= qw(Exporter);
 @EXPORT		= qw(&parseInterval &convertInterval &getInterval &coalesce);
-$VERSION	= '1.0.3';
+$VERSION	= '1.0.4';
 #what everything is worth in seconds
 %intervals 	= (
 	'days'		=> ((60**2) * 24),
@@ -185,9 +185,15 @@ sub coalesce {
 	}
 	
 	#replace the epoch's with their time string equivalents
+	my $i = 0;
 	foreach (@{$intervals}){
-		$_->[0] = $epoch_map{$_->[0]};
-		$_->[1] = $epoch_map{$_->[1]};
+		if (ref ($_) eq "ARRAY"){
+			$_->[0] = $epoch_map{$_->[0]};
+			$_->[1] = $epoch_map{$_->[1]};
+		}else{
+			splice (@{$intervals}, $i, 1);
+		}
+		$i ++;
 	}
 	
 	return ($intervals);

@@ -1,5 +1,8 @@
 Revision history for Perl extension Time::Interval.
 
+1.0.4	Mon May 17 17:42:24 EDT 2004
+		fixed bug in coalesce causing undef array values.
+
 1.0.3	Thu May 13 17:24:58 EDT 2004
 		added coalesce method, takes a series of time intervals and returns 
 		the minimum number of intervals based on overlapping timespans.
