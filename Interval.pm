@@ -13,8 +13,8 @@ use strict;
 require Exporter;
 our @ISA = qw(Exporter);
 our @EXPORT = qw(&parseInterval &convertInterval &getInterval);
-our $VERSION = '1.0';
-#whate everything is worth in seconds
+our $VERSION = "1.0.1";
+#what everything is worth in seconds
 our %intervals = (
 	'days'		=> ((60**2) * 24),
 	'hours'		=> (60 **2),
