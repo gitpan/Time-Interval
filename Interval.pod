@@ -7,7 +7,7 @@ this module can tell you the number of hours, minutes, and seconds elapsed betwe
 dates.
 
 
-=head1	SYNOPSYS
+=head1	SYNOPSIS
 
 	use Time::Interval;
 	
@@ -86,7 +86,7 @@ is a number, of time units that you specify on the ConvertTo option
 
 =item	ConvertTo	'days'|'hours'|'minutes'|'seconds'
 
-convert the given time interval to this unit of time measurment, if not specified, the deefault
+convert the given time interval to this unit of time measurement, if not specified, the default
 value is 'seconds'
 
 =item	days

@@ -5,6 +5,6 @@ WriteMakefile(
     'ABSTRACT_FROM'	=> 'Interval.pod',
     'AUTHOR'		=> 'Andrew N. HIcox <andrew@hicox.com>',
     'PREREQ_PM'		=> {
-    	'Date::Parse'	=> "2.09"
+    	'Date::Parse'	=> '2.20'
     }
 );

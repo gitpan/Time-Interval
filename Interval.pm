@@ -8,14 +8,17 @@
 
 
 ## Global Stuff ###################################
-package Time::Interval;
-use strict;
-require Exporter;
-our @ISA = qw(Exporter);
-our @EXPORT = qw(&parseInterval &convertInterval &getInterval);
-our $VERSION = "1.0.1";
+package	Time::Interval;
+use		strict;
+require	Exporter;
+
+#class global vars ...
+use vars qw($VERSION @EXPORT @ISA %intervals);
+@ISA 		= qw(Exporter);
+@EXPORT		= qw(&parseInterval &convertInterval &getInterval);
+$VERSION	= '1.0.2';
 #what everything is worth in seconds
-our %intervals = (
+%intervals 	= (
 	'days'		=> ((60**2) * 24),
 	'hours'		=> (60 **2),
 	'minutes'	=> 60,

@@ -1,8 +1,15 @@
 Revision history for Perl extension Time::Interval.
 
-1.0  	Fri Apr 25 10:58:30 2003
-		initial revision for release to CPAN
+1.0.2	Tue Oct 14 11:00:05 EDT 2003
+		submitted by: Doug Ferguson <dougf@bookings.nl>.
+		Removed useage of 'our' to declare class global variables,
+		instead, using the 'use vars ()' method. In addition to being
+		'more correct', this also allows older versions of perl to 
+		use Time::Interval. Thanx, Doug!
 
-1.0.1	Sun Aug 10 18:03:32 EDT 2003
-		fixed Makefile.PL to require Date::Parse (thanx Jonas B . Nielsen)
+1.0.1	Mon Apr 28 14:25:58 2003
+		fixed dependancy list in Makefile.PL, added Date::Parse
+
+1.0		Fri Apr 25 10:58:30 2003
+		initial revision for release to CPAN
 
