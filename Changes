@@ -1,5 +1,8 @@
 Revision history for Perl extension Time::Interval.
 
+1.0.5	Mon May 17 18:18:26 EDT 2004
+		strange array problems fixed.
+
 1.0.4	Mon May 17 17:42:24 EDT 2004
 		fixed bug in coalesce causing undef array values.
 
