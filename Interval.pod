@@ -1,0 +1,161 @@
+=head1	NAME
+
+Time::Interval - Converts time intervals of days, hours, minutes, and seconds
+
+This is a rather simple perl module for dealing with time intervals. Among other things, 
+this module can tell you the number of hours, minutes, and seconds elapsed between two 
+dates.
+
+
+=head1	SYNOPSYS
+
+	use Time::Interval;
+	
+	$data = getInterval(
+		"1/25/03 12:34:32 EDT 2003",
+		"4/25/03 11:24:00 EDT 2003"
+	);
+	
+	$string = getInterval(
+		"1/25/03 12:34:32 EDT 2003",
+		"4/25/03 11:24:00 EDT 2003",
+		"string"
+	);
+	
+	$number_of_minutes = convertInterval(
+		days		=> 5,
+		hours		=> 23,
+		minutes		=> 10,
+		ConvertTo	=> "minutes"
+	);
+	
+	$data = parseInterval(seconds => 14295872);
+
+	$string = parseInterval(
+		seconds => 14295872,
+		String	=> 1
+	);
+
+
+=head1	getInterval
+
+this will take two date strings in any of the formats recognized by Date::Parse, and return
+the number of days, hours, minutes, and seconds elapsed between the two times. 
+
+=head2	Returned Data format
+
+getInterval returns a hash reference in the same format as parseInterval.
+
+=head2	Catching exceptions
+
+upon failure this routine will return the undef value, and an error string will be 
+warn'd to stdout.
+
+=head2	Arguments
+
+=over
+
+=item argument 1 (required)
+
+this should be a date string in any of the formats available to Date::Parse.
+
+=item argument 2 (required)
+
+this should be a date string in any of the formats available to Date::Parse.
+
+=item argument 3 (optional)
+
+if this argument is defined it will cause the routine to return a string containing the 
+number of days, hours, minutes, and seconds (see 'String' named parameter to parseInterval).
+
+=back
+
+
+=head1	convertInterval
+
+this will convert a given number of days, hours, minutes, or seconds, or any combination
+thereof to the format specified by the ConverrtTo option.
+
+=head2	Returned data
+
+is a number, of time units that you specify on the ConvertTo option
+
+=head2	Options
+
+=over
+
+=item	ConvertTo	'days'|'hours'|'minutes'|'seconds'
+
+convert the given time interval to this unit of time measurment, if not specified, the deefault
+value is 'seconds'
+
+=item	days
+
+specify number of days
+
+=item	hours
+
+specify number of hours
+
+=item	minutes
+
+specify number of minutes
+
+=item	seconds
+
+specify number of seconds
+
+=back
+
+
+=head1	parseInterval
+
+this will convert the given time interval to the number of days, hours, minutes and seconds.
+
+=head2	Returned Data Format
+
+unless the 'String' option is specified, this routine returns a has reference containing the 
+following data:
+
+\%data	= (
+	'days'		=> $number_of_days,
+	'hours'		=> $number_of_hours,
+	'minutes'	=> $number_of_minutes,
+	'seconds'	=> $number_of_seconds
+);
+
+=head2	Options
+
+=over
+
+=item	days
+
+specify number of days
+
+=item	hours
+
+specify number of hours
+
+=item	minutes
+
+specify number of minutes
+
+=item	seconds
+
+specify number of seconds
+
+=item	String
+
+if this option is specified as a non-zero value a string containing the number of days, hours,
+minutes, and seconds is returned, for example:
+
+"70 days, 16 hours, 56 minutes, 18 seconds"
+
+=back
+
+
+=head1	Author: 
+
+    Andrew N. Hicox	<ahicox@hicox.com>
+    http://www.hicox.com
+
