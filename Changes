@@ -1,5 +1,9 @@
 Revision history for Perl extension Time::Interval.
 
+1.0.3	Thu May 13 17:24:58 EDT 2004
+		added coalesce method, takes a series of time intervals and returns 
+		the minimum number of intervals based on overlapping timespans.
+
 1.0.2	Tue Oct 14 11:00:05 EDT 2003
 		submitted by: Doug Ferguson <dougf@bookings.nl>.
 		Removed useage of 'our' to declare class global variables,

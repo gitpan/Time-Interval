@@ -6,7 +6,7 @@
 # change 'tests => 1' to 'tests => last_test_to_print';
 
 use Test;
-BEGIN { plan tests => 10 };
+BEGIN { plan tests => 11 };
 use Time::Interval;
 ok(1); # If we made it this far, we're ok.
 
@@ -53,3 +53,21 @@ foreach ('days','hours','minutes','seconds'){
 	print "\t$string\n";
 	ok(1);
 }
+
+#test coalesce
+print "testing coalesce on: \n";
+my @date_ranges  = (
+	[ "5/13/04 10:00:00 EDT", "5/13/04 11:00:00 EDT" ],
+	[ "5/13/04 13:00:00 EDT", "5/13/04 14:00:00 EDT" ],
+	[ "5/13/04 10:50:00 EDT", "5/13/04 12:00:00 EDT" ],
+	[ "5/10/04 10:50:00 EDT", "5/11/04 12:00:00 EDT" ],
+	[ "5/13/04 9:50:00 EDT",  "5/13/04 11:00:00 EDT" ],
+);
+foreach (@date_ranges){ print $_->[0], " - ", $_->[1], "\n"; }
+
+$tmp = coalesce(\@date_ranges);
+print "coalesced dates:\n";
+foreach (@{$tmp}){
+	print $_->[0], " - ", $_->[1], "\n";
+}
+ok(1);

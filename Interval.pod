@@ -35,6 +35,13 @@ dates.
 		seconds => 14295872,
 		String	=> 1
 	);
+	
+	$min_intervals = coalesce([ 
+			[ '1/25/03 12:34:32 EDT 2003', '1/25/03 15:34:32 EDT 2003' ],
+			[ '1/25/03 14:34:32 EDT 2003', '1/25/03 16:34:32 EDT 2003' ],
+			[ '1/25/03 09:10:18 EDT 2003', '1/25/03 12:32:15 EDT 2003' ]
+	]);
+	
 
 
 =head1	getInterval
@@ -152,6 +159,21 @@ minutes, and seconds is returned, for example:
 "70 days, 16 hours, 56 minutes, 18 seconds"
 
 =back
+
+
+=head1	coalesce
+
+given a set of time intervals (start and end time pairs), this method will return the minimum set
+based on overlapping time spans. That is, this method will return a list of unique contiguous time
+intervals from the given list. As with the other methods in this package, time strings may be 
+submitted in any of the formats supported by Date::Parse. Data is returned as it was passed in, as
+a reference to an array of array references (see below).
+
+=head2	Arguments
+
+coalesce takes only one argument, an array reference. The reference should be to an array of array 
+references, each of which contains a start and an end time. For a quick example, take a look at the
+SYNOPSIS section.
 
 
 =head1	Author: 

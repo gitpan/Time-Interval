@@ -15,8 +15,8 @@ require	Exporter;
 #class global vars ...
 use vars qw($VERSION @EXPORT @ISA %intervals);
 @ISA 		= qw(Exporter);
-@EXPORT		= qw(&parseInterval &convertInterval &getInterval);
-$VERSION	= '1.0.2';
+@EXPORT		= qw(&parseInterval &convertInterval &getInterval &coalesce);
+$VERSION	= '1.0.3';
 #what everything is worth in seconds
 %intervals 	= (
 	'days'		=> ((60**2) * 24),
@@ -113,4 +113,82 @@ sub parseInterval {
 		#return a data structure
 		return (\%time);
 	}	
+}
+
+
+## coalesce #######################################
+#coalesce([ [$start1, $end1], [$start2, $end2] ... ])
+sub coalesce {
+	require Date::Parse;
+	my $intervals = shift();
+	my (%epoch_map) = ();
+	my ($flag, $repeat) = (0,1);
+	
+	#convert each start / end to an epoch pair and stash 'em in epoch_map
+	foreach my $int (@{$intervals}) {
+		foreach (@{$int}){
+			my $epoch = Date::Parse::str2time($_);
+			$epoch_map{$epoch} = $_;
+			$_ = $epoch;
+		}
+	}
+
+	#sort 'em by start time
+	@{$intervals} = sort { $a->[0] <=> $b->[0] } @{$intervals};
+	
+	#flatten 'em
+	while ($repeat == 1) {
+		@{$intervals} = sort {
+			#if it's not an array ref, it's been destructo'd
+			if ( (ref($a) eq "ARRAY") && (ref($b) eq "ARRAY") ){
+			
+				#if b is inside a
+				if (($b->[0] >= $a->[0]) && ($b->[0] <= $a->[1])){
+					#if b's end time is greater than a's, update a's end time
+					if ($b->[1] > $a->[1]){ $a->[1] = $b->[1]; }
+					#destructo b
+					$b = ();
+					$flag = 1;
+					return (1);
+				#if a is inside b
+				}elsif (($a->[0] >= $b->[0]) && ($a->[0] <= $b->[1])){
+					#if a's end time is greater than b's, update b's end time
+					if ($a->[1] > $b->[1]){ $b->[1] = $a->[1]; }
+					#destructo a
+					$a = ();
+					$flag = 1;
+					return (0);
+				}else{
+					return (0);
+				}
+		
+			}else{
+				return (1);
+			}
+	
+		} @{$intervals};
+	
+		#weed out null elements
+		my $i = 0;
+		foreach (@{$intervals}){
+			if ( ref($_) ne "ARRAY" ){ splice (@{$intervals}, $i, 1); }
+			$i ++;
+		}
+		
+		#decide wether or not to repeat
+		if ($flag == 1){ 
+			$repeat = 1;  
+			$flag = 0;
+		}else{ 
+			$repeat = 0;
+		}
+	}
+	
+	#replace the epoch's with their time string equivalents
+	foreach (@{$intervals}){
+		$_->[0] = $epoch_map{$_->[0]};
+		$_->[1] = $epoch_map{$_->[1]};
+	}
+	
+	return ($intervals);
 }
