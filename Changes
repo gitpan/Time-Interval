@@ -1,5 +1,8 @@
 Revision history for Perl extension Time::Interval.
 
+1.1		Thu Nov  2 18:08:48 GMT 2006
+		don't convert input strings to epoch if already converted 
+
 1.0.5	Mon May 17 18:18:26 EDT 2004
 		strange array problems fixed.
 

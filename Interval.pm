@@ -16,7 +16,7 @@ require	Exporter;
 use vars qw($VERSION @EXPORT @ISA %intervals);
 @ISA 		= qw(Exporter);
 @EXPORT		= qw(&parseInterval &convertInterval &getInterval &coalesce);
-$VERSION	= '1.0.5';
+$VERSION	= 1.1;
 #what everything is worth in seconds
 %intervals 	= (
 	'days'		=> ((60**2) * 24),
@@ -127,7 +127,14 @@ sub coalesce {
 	#convert each start / end to an epoch pair and stash 'em in epoch_map
 	foreach my $int (@{$intervals}) {
 		foreach (@{$int}){
-			my $epoch = Date::Parse::str2time($_);
+			
+			## only convert if it's not already epoch time
+			my $epoch = ();
+			if ($_ =~/^(\d{10})$/){
+				$epoch = $1;
+			}else{
+				my $epoch = Date::Parse::str2time($_);
+			}
 			$epoch_map{$epoch} = $_;
 			$_ = $epoch;
 		}
