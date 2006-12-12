@@ -6,7 +6,7 @@
 # change 'tests => 1' to 'tests => last_test_to_print';
 
 use Test;
-BEGIN { plan tests => 11 };
+BEGIN { plan tests => 12 };
 use Time::Interval;
 ok(1); # If we made it this far, we're ok.
 
@@ -45,10 +45,22 @@ foreach ('days','hours','minutes','seconds'){
 #test parseInterval
 print "testing parseInterval (data):\n";
 foreach ('days','hours','minutes','seconds'){
-	print "123456 $_ is: ...\n";
+	print "12345 $_ is: ...\n";
 	my $string = parseInterval(
 		$_		=> 12345,
 		String	=> 1
+	) || ok(0);
+	print "\t$string\n";
+	ok(1);
+}
+
+#test parseInterval
+print "testing parseInterval w/abbreviated string (data):\n";
+foreach ('days','hours','minutes','seconds'){
+	print "12345 $_ is: ...\n";
+	my $string = parseInterval(
+		$_		=> 12345,
+		Small	=> 1
 	) || ok(0);
 	print "\t$string\n";
 	ok(1);

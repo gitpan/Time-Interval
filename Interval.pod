@@ -36,6 +36,11 @@ dates.
 		String	=> 1
 	);
 	
+	$string = parseInterval(
+		seconds => 14295872,
+		Small	=> 1
+	);
+	
 	$min_intervals = coalesce([ 
 			[ '1/25/03 12:34:32 EDT 2003', '1/25/03 15:34:32 EDT 2003' ],
 			[ '1/25/03 14:34:32 EDT 2003', '1/25/03 16:34:32 EDT 2003' ],
@@ -72,8 +77,24 @@ this should be a date string in any of the formats available to Date::Parse.
 
 =item argument 3 (optional)
 
-if this argument is defined it will cause the routine to return a string containing the 
-number of days, hours, minutes, and seconds (see 'String' named parameter to parseInterval).
+this argument controls how the interval will be returned.
+If not defined, the inerval will be returned as a hash reference containing the number of 
+days, hourse, minutes and seconds between the two dates. If the following values are specified
+the interval will be returned as a string:
+
+=over
+
+=item	'small'
+
+if this value is specified, a string containing abbreviated values will be returned (dhms format)
+for instance 1d 2h 3m 0s (one day, two hours, three minutes and 0 seconds)
+
+=item	'string'
+
+if this value (or any value other than 'short') is specified a string containing the interval
+will be returned for instance: '1 day, 2 hours, 3 minutes, 0 seconds'
+
+=back
 
 =back
 
@@ -157,6 +178,13 @@ if this option is specified as a non-zero value a string containing the number o
 minutes, and seconds is returned, for example:
 
 "70 days, 16 hours, 56 minutes, 18 seconds"
+
+=item	Small
+
+if this option is specified as a non-zero value a string containing the number of days, hours,
+minutes, and seconds is returned in abbreviated form (dhms format), for example:
+
+"70d 16h 56m 18s"
 
 =back
 

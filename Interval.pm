@@ -16,7 +16,7 @@ require	Exporter;
 use vars qw($VERSION @EXPORT @ISA %intervals);
 @ISA 		= qw(Exporter);
 @EXPORT		= qw(&parseInterval &convertInterval &getInterval &coalesce);
-$VERSION	= 1.1;
+$VERSION	= 1.2;
 #what everything is worth in seconds
 %intervals 	= (
 	'days'		=> ((60**2) * 24),
@@ -31,7 +31,6 @@ sub getInterval {
 	my $date1 = shift();
 	my $date2 = shift();
 	my $string = shift();
-	if (! $string){ $string = 0; }
 	if ( (! $date1) || (! $date2) ){
 		warn ("two dates are required for the getInterval method");
 		return (undef);
@@ -43,10 +42,14 @@ sub getInterval {
 			return (undef);
 		};
 	}
-	my $data = parseInterval(
-		seconds	=> abs($date1 - $date2),
-		String	=> $string
-	);
+	
+	my %args = ( seconds => abs($date1 - $date2) );
+	if ($string =~/^small/i){
+		$args{'Small'} = 1;
+	}elsif($string !~/^\s*$/){
+		$args{'String'} = 1;
+	}
+	my $data = parseInterval(%args);
 	return ($data);
 }
 
@@ -100,15 +103,28 @@ sub parseInterval {
 		}
 	}
 	#return data
-	if ($p{'String'} != 0){
+        if ($p{'Small'} != 0) {
 		#return a string?
 		my @temp = ();
 		foreach ("days","hours","minutes","seconds"){
 			if ($time{$_} > 0){
-				push (@temp, "$time{$_} $_");
+				push (@temp, "$time{$_}".substr($_,0,1));
 			}
 		}
-		return (join (", ", @temp));
+        return join (" ", @temp) || "0s";
+	}elsif ($p{'String'} != 0){
+		#return a string?
+		my @temp = ();
+		foreach ("days","hours","minutes","seconds"){
+			if ($time{$_} > 0){
+                          if ($time{$_} == 1) {
+				push (@temp, "$time{$_} ".substr($_,0,-1));
+                              } else {
+				push (@temp, "$time{$_} $_");
+                              }
+			}
+		}
+		return (join (", ", @temp)) || "0 seconds";
 	}else{
 		#return a data structure
 		return (\%time);

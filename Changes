@@ -1,5 +1,12 @@
 Revision history for Perl extension Time::Interval.
 
+1.2		Tue Dec 12 08:46:00 EST 2006
+		added 'short' option to getInterval, and applied 
+		patch from Alberto Simones adding 'Short' option to parseInterval
+		which generates a string with abbreviated output in dhms format
+		(see pod)
+		Thanks, Alberto!
+		
 1.1		Thu Nov  2 18:08:48 GMT 2006
 		don't convert input strings to epoch if already converted 
 
