@@ -16,7 +16,7 @@ require	Exporter;
 use vars qw($VERSION @EXPORT @ISA %intervals);
 @ISA 		= qw(Exporter);
 @EXPORT		= qw(&parseInterval &convertInterval &getInterval &coalesce);
-$VERSION	= 1.2;
+$VERSION	= 1.21;
 #what everything is worth in seconds
 %intervals 	= (
 	'days'		=> ((60**2) * 24),
@@ -30,7 +30,7 @@ $VERSION	= 1.2;
 sub getInterval {
 	my $date1 = shift();
 	my $date2 = shift();
-	my $string = shift();
+	my $string = shift() || "";
 	if ( (! $date1) || (! $date2) ){
 		warn ("two dates are required for the getInterval method");
 		return (undef);
@@ -103,7 +103,7 @@ sub parseInterval {
 		}
 	}
 	#return data
-        if ($p{'Small'} != 0) {
+        if ($p{'Small'} && $p{'Small'} != 0) {
 		#return a string?
 		my @temp = ();
 		foreach ("days","hours","minutes","seconds"){
@@ -136,8 +136,8 @@ sub parseInterval {
 #coalesce([ [$start1, $end1], [$start2, $end2] ... ])
 sub coalesce {
 	require Date::Parse;
-	my $intervals = shift();
-	my (%epoch_map) = ();
+	my $intervals = shift() || [];
+	my %epoch_map = ();
 	my ($flag, $repeat) = (0,1);
 	
 	#convert each start / end to an epoch pair and stash 'em in epoch_map
@@ -145,7 +145,7 @@ sub coalesce {
 		foreach (@{$int}){
 			
 			## only convert if it's not already epoch time
-			my $epoch = ();
+			my $epoch = "";
 			if ($_ =~/^(\d{10})$/){
 				$epoch = $1;
 			}else{
