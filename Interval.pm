@@ -16,7 +16,7 @@ require	Exporter;
 use vars qw($VERSION @EXPORT @ISA %intervals);
 @ISA 		= qw(Exporter);
 @EXPORT		= qw(&parseInterval &convertInterval &getInterval &coalesce);
-$VERSION	= 1.21;
+$VERSION	= 1.22;
 #what everything is worth in seconds
 %intervals 	= (
 	'days'		=> ((60**2) * 24),
@@ -112,7 +112,7 @@ sub parseInterval {
 			}
 		}
         return join (" ", @temp) || "0s";
-	}elsif ($p{'String'} != 0){
+	}elsif ($p{'String'} && $p{'String'} != 0){
 		#return a string?
 		my @temp = ();
 		foreach ("days","hours","minutes","seconds"){
