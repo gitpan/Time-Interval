@@ -1,5 +1,10 @@
 Revision history for Perl extension Time::Interval.
 
+1.23		Tue Jan 29 10:13:54 CST 2013
+		updated LICENSE.
+		this perl module is released under the same license
+		as perl itself
+
 1.22		Wed May 30 22:57:32 EDT 2007
 		applied patch to fix another warning when using -w flag.
 		thanks, Sean <sean.robinson@sccmail.maricopa.edu>

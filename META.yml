@@ -1,11 +1,14 @@
-# http://module-build.sourceforge.net/META-spec.html
-#XXXXXXX This is a prototype!!!  It will change in the future!!! XXXXX#
-name:         Time-Interval
-version:      1.21
-version_from: Interval.pm
-installdirs:  site
-requires:
+--- #YAML:1.0
+name:                Time-Interval
+version:             1.23
+abstract:            Converts time intervals of days, hours, minutes, and seconds
+license:             ~
+author:              
+    - Andrew N. HIcox <andrew@hicox.com>
+generated_by:        ExtUtils::MakeMaker version 6.42
+distribution_type:   module
+requires:     
     Date::Parse:                   2.20
-
-distribution_type: module
-generated_by: ExtUtils::MakeMaker version 6.17
+meta-spec:
+    url:     http://module-build.sourceforge.net/META-spec-v1.3.html
+    version: 1.3
