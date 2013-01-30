@@ -1,5 +1,9 @@
 Revision history for Perl extension Time::Interval.
 
+1.231	        Wed Jan 30 07:58:21 CST 2013
+		forgot to add LICENSE to manifest.
+		incremented version for CPAN upload
+
 1.23		Tue Jan 29 10:13:54 CST 2013
 		updated LICENSE.
 		this perl module is released under the same license

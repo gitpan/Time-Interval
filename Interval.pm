@@ -16,7 +16,7 @@ require	Exporter;
 use vars qw($VERSION @EXPORT @ISA %intervals);
 @ISA 		= qw(Exporter);
 @EXPORT		= qw(&parseInterval &convertInterval &getInterval &coalesce);
-$VERSION	= 1.23;
+$VERSION	= 1.231;
 #what everything is worth in seconds
 %intervals 	= (
 	'days'		=> ((60**2) * 24),
