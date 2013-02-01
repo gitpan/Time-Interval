@@ -1,5 +1,9 @@
 Revision history for Perl extension Time::Interval.
 
+1.232		Thu Jan 31 21:41:40 CST 2013
+		those damn ._* files os x kindly inserted into the distribution
+		I have removed them. sorry everyone.
+
 1.231	        Wed Jan 30 07:58:21 CST 2013
 		forgot to add LICENSE to manifest.
 		incremented version for CPAN upload

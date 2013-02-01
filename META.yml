@@ -1,6 +1,6 @@
 --- #YAML:1.0
 name:                Time-Interval
-version:             1.231
+version:             1.232
 abstract:            Converts time intervals of days, hours, minutes, and seconds
 license:             ~
 author:              
