@@ -6,7 +6,7 @@
 # change 'tests => 1' to 'tests => last_test_to_print';
 
 use Test;
-BEGIN { plan tests => 12 };
+BEGIN { plan tests => 13 };
 use Time::Interval;
 ok(1); # If we made it this far, we're ok.
 
@@ -89,4 +89,10 @@ print "coalesced dates:\n";
 foreach (@{$tmp}){
 	print $_->[0], " - ", $_->[1], "\n";
 }
+ok(1);
+
+#test fractional seconds
+print "testing fractional second rounding ...\n";
+my $string = parseInterval( 'seconds' => 1.61803398875, 'Small' => 1 ) || ok(0);
+print "rounded ok: " . $string . "\n";
 ok(1);

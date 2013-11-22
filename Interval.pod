@@ -6,6 +6,10 @@ This is a rather simple perl module for dealing with time intervals. Among other
 this module can tell you the number of hours, minutes, and seconds elapsed between two 
 dates.
 
+NOTE: this module does not handle resolutions < 1 second. Please see the Time::HiRes 
+module for high resolution time operations. This module will round fractional second
+values to the nearest whole number.
+
 
 =head1	SYNOPSIS
 

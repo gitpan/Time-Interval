@@ -9,14 +9,14 @@
 
 ## Global Stuff ###################################
 package	Time::Interval;
-use		strict;
+use	strict;
 require	Exporter;
 
 #class global vars ...
 use vars qw($VERSION @EXPORT @ISA %intervals);
 @ISA 		= qw(Exporter);
 @EXPORT		= qw(&parseInterval &convertInterval &getInterval &coalesce);
-$VERSION	= 1.232;
+$VERSION	= 1.233;
 #what everything is worth in seconds
 %intervals 	= (
 	'days'		=> ((60**2) * 24),
@@ -70,6 +70,11 @@ sub convertInterval {
 	#convert everything to seconds
 	my $seconds = 0;
 	foreach ("days","hours","minutes","seconds"){
+		
+		#new 1.233 hotness: quantize seconds.
+		if ($_ eq "seconds"){ $p{$_} = int($p{$_}); }
+		
+		#as it were
 		if (exists($p{$_})){ $seconds += ($intervals{$_} * $p{$_}); }
 	}
 	#send it back out into the desired output
@@ -86,6 +91,10 @@ sub parseInterval {
 	my %p = @_;
 	#convert everything to seconds
 	my $seconds = convertInterval(%p);
+	
+	#new 1.233 hotness: quantize seconds.
+	$seconds = int($seconds);
+	
 	#do the thang
 	my %time = (
 		'days'		=> 0,
